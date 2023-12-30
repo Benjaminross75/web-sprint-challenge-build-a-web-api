@@ -73,15 +73,17 @@ projectsRouter.put('/:id', async (req, res, next)=>{
        const changes = {
            name: req.body.name,
            description: req.body.description,
-           completed: !req.completed,
+           completed: req.body.completed,
 
  }
 
-       if(!req.body.name || !req.body.description || !req.body.completed){
+       if(!req.body.name || !req.body.description || req.body.completed === undefined){
            res.status(400).json()
        }
        const updatedProject = await Projects.update(id, changes);
+       console.log(updatedProject)
         if(!updatedProject){
+
             res.status(404).json("error")
         } else{
           res.json(updatedProject)

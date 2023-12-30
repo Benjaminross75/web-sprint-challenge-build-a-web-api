@@ -60,12 +60,12 @@ actionsRouter.put('/:id', async (req, res, next)=>{
            notes: req.body.notes,
            description: req.body.description,
            project_id: req.body.project_id,
-           completed: !req.completed,
+           completed: req.body.completed,
 
 
        }
 
-       if(!req.body.notes || !req.body.description || !req.body.project_id || !req.body.completed){
+       if(!req.body.notes || !req.body.description || !req.body.project_id || req.body.completed === undefined){
            res.status(400).json()
        }
        const updatedAction = await Actions.update(id, changes);
